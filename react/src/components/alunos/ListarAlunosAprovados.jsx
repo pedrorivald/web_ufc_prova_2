@@ -29,34 +29,36 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 
-const Listar = () => {
+const ListarAlunosAprovados = () => {
 
   const [alunos, setAlunos] = useState([]);
   const [mudou, setMudou] = useState(false);
-  //estado para guardar a media dos iras  
-  const [mediaIra, setMediaIra] = useState(0);
 
   useEffect(
     () => {
       axios.get("http://localhost:3001/alunos/listar")
         .then(
           (response) => {
-            setAlunos(response.data)
-
-            //obtendo a media dos iras
-            //somo todos os ira e divido pela quantidade de alunos no vetor
-
             let soma = 0;
             response.data.forEach((aluno) => {
               soma += aluno.ira;
             });
 
-            //arredondo a media para duas casas decimais
-
             let media = soma / response.data.length;
             media = media.toFixed(2);
 
-            setMediaIra(media);
+            //percorro todos os alunos e adiciono em um vetor auxiliar somente
+            //os alunos que estao acima da media
+
+            let alunos = [];
+            response.data.forEach((aluno) => {
+              if(aluno.ira > media) {
+                alunos.push(aluno);
+              }
+            });
+
+            setAlunos(alunos);
+
           }
         )
         .catch(error => console.log(error));
@@ -113,9 +115,7 @@ const Listar = () => {
                   return (
                     <StyledTableRow key={aluno._id}>
                       <StyledTableCell>{aluno._id}</StyledTableCell>
-                      {/* Se o IRA do aluno for menor que a mediaIra, então adiciono a classe vermelho */}
-                      {/* essa classe modifica a cor da fonte para red */}
-                      <StyledTableCell className={aluno.ira < mediaIra ? "vermelho" : ""}>{aluno.nome}</StyledTableCell>
+                      <StyledTableCell>{aluno.nome}</StyledTableCell>
                       <StyledTableCell>{aluno.curso}</StyledTableCell>
                       <StyledTableCell>{aluno.ira}</StyledTableCell>
                       <StyledTableCell>
@@ -141,15 +141,10 @@ const Listar = () => {
 
             }
 
-            {/* Crio uma nova linha em baixo, adicionei uma classe borda para diferenciar */}
-              <TableRow className="borda">
-                <StyledTableCell >Média IRA: {mediaIra}</StyledTableCell>
-              </TableRow>
-
           </TableBody>
         </Table>
       </TableContainer>
     </>
   )
 }
-export default Listar;
+export default ListarAlunosAprovados;

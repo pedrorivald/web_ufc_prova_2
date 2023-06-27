@@ -45,6 +45,15 @@ const MyMenu = () => {
                     >
                         <Typography>Listar</Typography>
                     </MenuItem>
+
+                {/* mENU para rota de alunos aprovados */}
+                    <MenuItem
+                        onClick={handleCloseAlunoMenu}
+                        component={Link}
+                        to={"listarAlunosAprovados"} 
+                    >
+                        <Typography>Listar Alunos Aprovados</Typography>
+                    </MenuItem>
                 </Menu>
             </Box>
         )
@@ -73,7 +82,7 @@ const MyMenu = () => {
                             textDecoration: "none"
                         }}
                     >
-                        CRUD V1
+                        CRUD
                     </Typography>
 
                     <Box

@@ -1,3 +1,13 @@
+/* classe para mudar a cor da fonte em uma celula para vermelho */
+.MuiTableCell-root.vermelho {
+  color: red;
+}
+
+/* classe para adicionar uma borda no topo */
+.borda {
+  border-top: 2px solid black;
+}
+
 .App {
   text-align: center;
 }

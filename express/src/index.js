@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import mongo from './db/mongo.connection.js';
 import alunos from "./routes/alunos.js";
+import login from "./routes/login.js";
 
 const PORT = 3001;
 const app = express();
@@ -24,6 +25,8 @@ app.use(function (req, res, next) {
 });
 
 app.use("/alunos/", alunos);
+//registro a rota de login
+app.use("/login/", login);
 
 app.listen(PORT, () => {
   console.log(`Server listen on http://localhost:${PORT}`);

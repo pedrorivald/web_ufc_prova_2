@@ -1,4 +1,4 @@
-import { TextField, Typography, Box, Button } from "@mui/material"
+import { TextField, Typography, Box, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 const Cadastrar = () => {
 
   const [nome, setNome] = useState("");
-  const [curso, setCurso] = useState("");
+  // o select de curso começa com ES por padrão
+  const [curso, setCurso] = useState("ES");
   const [ira, setIra] = useState(0);
 
   const navigate = useNavigate();
@@ -44,15 +45,24 @@ const Cadastrar = () => {
           onChange={(event) => setNome(event.target.value)}
         />
 
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="curso"
-          name="curso"
-          label="Curso"
-          onChange={(event) => setCurso(event.target.value)}
-        />
+        {/* Controle responsavel pelo select de cursos */}
+
+        <FormControl fullWidth sx={{ mt: 2 }}>
+          <InputLabel id="select-tit-label">Curso</InputLabel>
+          <Select
+            labelId="select-tit-label"
+            label="Curso"
+            value={curso}
+            onChange={(event) => setCurso(event.target.value)}
+          >
+            <MenuItem value="DD">Design Digital</MenuItem>
+            <MenuItem value="SI">Sistemas da Informação</MenuItem>
+            <MenuItem value="CC">Ciência da Computação</MenuItem>
+            <MenuItem value="ES">Engenharia de Software</MenuItem>
+            <MenuItem value="EC">Engenharia da Computação</MenuItem>
+            <MenuItem value="RC">Redes de Computadores</MenuItem>
+          </Select>
+        </FormControl>
 
         <TextField
           margin="normal"
